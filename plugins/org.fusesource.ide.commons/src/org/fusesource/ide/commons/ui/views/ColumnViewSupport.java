@@ -539,7 +539,15 @@ public abstract class ColumnViewSupport extends ViewPart implements IConfigurabl
 	protected abstract TableChartOptions createChartOptions();
 
 	public void setConfiguration(TableConfiguration configuration) {
-		this.configuration = configuration;
+	    if (configuration != this.configuration) {
+	        if (this.configuration != null) {
+	            this.configuration.removeColumnListeners(getViewer());
+	        }
+	        this.configuration = configuration;
+            if (this.configuration != null) {
+                this.configuration.addColumnListeners(getViewer());
+            }
+	    }
 	}
 
 	protected boolean showChartAction() {
