@@ -145,14 +145,6 @@ public class BundlesTabSection extends BundlesTableView {
     }
 
     @Override
-    public void dispose() {
-        if (current != null) {
-            current.getFacade().removeBundleStateNotificationListener(notificationListener, null, null);
-        }
-        super.dispose();
-    }
-
-    @Override
     public void aboutToBeShown() {
         if (current != null) {
             current.getFacade().addBundleStateNotificationListener(notificationListener, null, null);
