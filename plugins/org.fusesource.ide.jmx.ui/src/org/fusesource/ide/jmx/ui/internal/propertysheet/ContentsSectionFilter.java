@@ -11,6 +11,8 @@
  ******************************************************************************/
 package org.fusesource.ide.jmx.ui.internal.propertysheet;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.IFilter;
 import org.fusesource.ide.commons.tree.RefreshableCollectionNode;
 
@@ -21,8 +23,11 @@ public class ContentsSectionFilter implements IFilter {
 
     @Override
     public boolean select(Object toTest) {
-        return toTest instanceof RefreshableCollectionNode
-                && ((RefreshableCollectionNode) toTest).requiresContentsPropertyPage();
+        if (toTest instanceof RefreshableCollectionNode) {
+            List<?> propertySources = ((RefreshableCollectionNode) toTest).getPropertySourceList();
+            return propertySources != null && propertySources.size() > 0;
+        }
+        return false;
     }
 
 }
